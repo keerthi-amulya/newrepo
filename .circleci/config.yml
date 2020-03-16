@@ -1,45 +1,17 @@
-
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/php:7.2-apache-browsers
-        environment:
-          DB_STRING:                  mysql:host=127.0.0.1;dbname=eoo_test
-          DB_USER:                    root
-          DB_PASSWORD:                test
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/mysql:5.7.24
-        environment:
-          MYSQL_ROOT_PASSWORD: test
-          MYSQL_DATABASE: eoo_test
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      
-      #install php extensions needed
-      - run: sudo apt install -y libpng-dev
-      - run: sudo docker-php-ext-install gd
-      - run: sudo apt install -y mysql-client
-      - run: sudo docker-php-ext-install pdo_mysql
-      - run: sudo docker-php-ext-enable pdo_mysql
-
-      #config apache
-      - run: sudo chmod 777 /etc/apache2/sites-enabled
-      - run: sudo cp /home/circleci/repo/.circleci/example.conf /etc/apache2/sites-available/eoo.conf
-      - run: sudo a2ensite eoo
-      - run: sudo service apache2 restart
-      
-      #install composer dependecies
-      - run: composer install -n --prefer-dist
-        
-      # run tests!
-      - run:
-          name: Run Unit tests
-          command: vendor/bin/phpunit
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - test
+      - deploy
+  nightly:
+    triggers: #use the triggers key to indicate a scheduled build
+      - schedule:
+          cron: "0 0 * * *" # use cron syntax to set the schedule
+          filters:
+            branches:
+              only:
+                - master
+                - beta
+    jobs:
+      - coverage
