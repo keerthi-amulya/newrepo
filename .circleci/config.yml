@@ -1,17 +1,11 @@
-workflows:
-  version: 2
-  commit:
-    jobs:
-      - test
-      - deploy
-  nightly:
-    triggers: #use the triggers key to indicate a scheduled build
-      - schedule:
-          cron: "0 0 * * *" # use cron syntax to set the schedule
-          filters:
-            branches:
-              only:
-                - master
-                - beta
-    jobs:
-      - coverage
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.0-browsers # < an arbitrarily chosen docker image.
+    steps:
+      - checkout
+      - run:
+          # example curl request from dockerhub documentation
+          name: Trigger docker remotely
+          command: curl --data build=true -X POST https://registry.hub.docker.com/u/svendowideit/testhook/trigger/be579c82-7c0e-11e4-81c4-0242ac110020/
