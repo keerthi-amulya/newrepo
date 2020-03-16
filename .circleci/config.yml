@@ -1,11 +1,11 @@
-version: 2
-jobs:
-  build:
+version: 2.1
+executors:
+  my-executor:
     docker:
-      - image: circleci/node:10.0-browsers # < an arbitrarily chosen docker image.
+      - image: circleci/ruby:2.4.0
+
+jobs:
+  my-job:
+    executor: my-executor
     steps:
-      - checkout
-      - run:
-          # example curl request from dockerhub documentation
-          name: Trigger docker remotely
-          command: curl --data build=true -X POST https://registry.hub.docker.com/u/svendowideit/testhook/trigger/be579c82-7c0e-11e4-81c4-0242ac110020/
+      - run: echo outside the executor
