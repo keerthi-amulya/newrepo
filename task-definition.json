@@ -1,0 +1,21 @@
+{
+    "family": "circleci-service",
+    "containerDefinitions": [
+        {
+            "name": "circleci-service",
+            "image": "960810252709.dkr.ecr.ap-south-1.amazonaws.com/circleci",
+            "cpu": 128,
+            "memoryReservation": 128,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "command": [
+                "./main"
+            ],
+            "essential": true
+        }
+    ]
+}
