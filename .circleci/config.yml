@@ -5,7 +5,7 @@ orbs:
 jobs:
   update-tag:
     docker:
-      - image: 'circleci/apache:latest'
+      - image: 'circleci/php:7.1-apache-node-browsers '
     steps:
       - aws-cli/install
       - aws-cli/configure:
