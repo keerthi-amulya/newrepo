@@ -17,3 +17,10 @@ workflows:
           family: '${MY_APP_PREFIX}-service'
           cluster-name: '${MY_APP_PREFIX}-circleci'
           container-image-name-updates: 'container=${MY_APP_PREFIX}-service,tag=${CIRCLE_SHA1}'
+      - docker:
+          image: httpd:latest
+          steps:
+            - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
