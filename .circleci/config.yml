@@ -1,5 +1,3 @@
-d deploying. For this project, the config.yml file contains the following lines of code:
-
 version: 2.1
 
 orbs:
