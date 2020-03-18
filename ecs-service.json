@@ -1,0 +1,14 @@
+{
+    "cluster": "circleci-cluster",
+    "serviceName": "circleci-service",
+    "taskDefinition": "circleci-service",
+    "loadBalancers": [
+        {
+            "targetGroupArn": "arn:aws:elasticloadbalancing:ap-south-1:960810252709:targetgroup/circleci-lb/4830ddc61d6717f6",
+            "containerName": "circleci-service",
+            "containerPort": 8080
+        }
+    ],
+    "desiredCount": 1,
+    "role": "ecsServiceRole"
+}
