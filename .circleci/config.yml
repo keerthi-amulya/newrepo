@@ -5,7 +5,7 @@ orbs:
 jobs:
   update-tag:
     docker:
-      - image: 'circleci/httpd:latest'
+      - image: 'circleci/apache:latest'
     steps:
       - aws-cli/install
       - aws-cli/configure:
