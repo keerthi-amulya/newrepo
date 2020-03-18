@@ -9,10 +9,10 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
+          #account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          create-repo: true
+          #create-repo: true
           # Name of dockerfile to use. Defaults to Dockerfile.
           #dockerfile: Dockerfile
           # AWS_REGION_ENV_VAR_NAME
@@ -22,9 +22,9 @@ workflows:
           # myECRRepoTag
           #tag: "$CIRCLE_SHA1"
       - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
+          #requires:
+            #- aws-ecr/build-and-push-image
           aws-region: AWS_DEFAULT_REGION
           family: '${MY_APP_PREFIX}-service'
           cluster-name: '${MY_APP_PREFIX}-cluster'
-          container-image-name-updates: 'container=${MY_APP_PREFIX}-service,tag=${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=${MY_APP_PREFIX}-service'
