@@ -37,9 +37,8 @@ workflows:
                 --output text \
                 --query 'taskDefinition.taskDefinitionArn')
              echo "export TASK_DEFINITION_ARN='${TASK_DEFINITION_ARN}'" 
-      
-       - aws-ecs/verify-revision-is-deployed:
-           family: '${MY_APP_PREFIX}-service'
-           cluster-name: '${MY_APP_PREFIX}-cluster'
-           task-definition-arn: '${TASK_DEFINITION_ARN}'
-          
+workflows:
+  test-workflow:
+    jobs:
+      - aws-ecr/build-and-push-image
+      - aws-ecs/deploy-service-update
