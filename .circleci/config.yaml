@@ -1,29 +1,22 @@
-
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/node:latest
+    environment:
+      IMAGETAG: latest
+    working_directory: ~/main
     steps:
-      - checkout
-      - run:
-          name: Deploy
-          command: |
-            RUN: curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-                 unzip awscli-bundle.zip
-                 ./awscli-bundle/install -b ~/bin/aws
-           
-            PUBLIC_IP=$(curl ipinfo.io/ip)
-            
-            AWS_REGION=us-east-2
-           
-            SG_ID=sg-09d7899190ab64d87
-         
-            RUN: ~/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
-              --protocol tcp --port 22 --cidr $PUBLIC_IP/24
-            
-            RUN: sleep 5
-           
-            RUN: ssh -o StrictHostKeyChecking=no ec2@3.80.192.230 \
-            
-          
+      - add_ssh_keys:
+          fingerprints:
+            - "6e:0b:e1:81:d6:31:89:19:1f:3b:d8:15:15:b8:a5:fd"
+
+      - run: echo "This is pipeline ID << pipeline.id >>"
+
+
+
+
+
+
+
+
