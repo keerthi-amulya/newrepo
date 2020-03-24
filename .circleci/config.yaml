@@ -7,9 +7,9 @@ jobs:
       IMAGETAG: latest
     working_directory: ~/main
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "6e:0b:e1:81:d6:31:89:19:1f:3b:d8:15:15:b8:a5:fd"
+      #- add_ssh_keys:
+          #fingerprints:
+           # - "6e:0b:e1:81:d6:31:89:19:1f:3b:d8:15:15:b8:a5:fd"
 
       - run: echo "This is pipeline ID << pipeline.id >>"
 
