@@ -26,7 +26,7 @@ commands:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "<< parameters.fingerprint >>"
+            - "6e:0b:e1:81:d6:31:89:19:1f:3b:d8:15:15:b8:a5:fd"
       - run:
           name: Commands over SSH without host context
           no_output_timeout: << parameters.no_output_timeout >>
